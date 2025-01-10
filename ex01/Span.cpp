@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:08:41 by tkubanyc          #+#    #+#             */
-/*   Updated: 2025/01/09 16:04:42 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:37:51 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Span::Span( unsigned int N ) : _maxSize( N ) {}
 Span::Span( const Span& other ) : _maxSize( other._maxSize ),
 								  _numbers( other._numbers ) {}
 
-Span	Span::operator=( const Span& other ) {
+Span&	Span::operator=( const Span& other ) {
 
 	if ( this != &other ) {
 		_maxSize = other._maxSize;
@@ -47,6 +47,32 @@ void	Span::addNumbersFromRange( InputIterator first, InputIterator last ) {
 		throw std::overflow_error( "Adding this number exceeds the maximum size");
 	}
 	_numbers.insert( _numbers.end(), first, last );
+}
+
+/*-----------------------------------------------------------------*/
+/*  Function to generate a Span filled with unique random numbers  */
+/*-----------------------------------------------------------------*/
+Span	Span::generateRandomSpan( unsigned int spanSize, int minValue, int maxValue ) {
+
+	if ( maxValue - minValue + 1 < static_cast<int>(spanSize) ) {
+		throw std::invalid_argument( "Range too small to generate the required number of unique numbers" );
+	}
+
+	// Using <random> to generate random numbers
+	std::random_device rd; // Seed for the random generator
+	std::mt19937 gen( rd() ); // Mersenne Twister random generator
+	std::uniform_int_distribution<> dist( minValue, maxValue ); // Range of random numbers
+
+	std::unordered_set<int> uniqueNumbers;
+	while ( uniqueNumbers.size() < spanSize ) {
+		int randomNumber = dist( gen );
+		uniqueNumbers.insert( randomNumber ); // Only unique numbers are added to the set
+	}
+
+	Span sp( spanSize );
+	sp.addNumbersFromRange( uniqueNumbers.begin(), uniqueNumbers.end() );
+
+	return sp;
 }
 
 int	Span::shortestSpan( void ) const {
@@ -84,4 +110,5 @@ int	Span::longestSpan( void ) const {
 
 unsigned int	Span::getSize( void ) const { return _numbers.size(); }
 
-template void	Span::addNumbersFromRange<std::vector<int>::iterator>(std::vector<int>::iterator, std::vector<int>::iterator);
+template void	Span::addNumbersFromRange<std::vector<int>::iterator>\
+					(std::vector<int>::iterator, std::vector<int>::iterator);

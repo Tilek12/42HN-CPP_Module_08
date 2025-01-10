@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 14:50:23 by tkubanyc          #+#    #+#             */
-/*   Updated: 2025/01/10 14:37:41 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:00:38 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 #include <random>
 #include <unordered_set>
 
+/*---------------------*/
+/*  Define Span class  */
+/*---------------------*/
 class	Span {
 
 private:

@@ -6,17 +6,26 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:08:41 by tkubanyc          #+#    #+#             */
-/*   Updated: 2025/01/10 14:37:51 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:13:24 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Span.hpp"
 
+/*--------------------------*/
+/*  Span Class constructor  */
+/*--------------------------*/
 Span::Span( unsigned int N ) : _maxSize( N ) {}
 
+/*-------------------------------*/
+/*  Span Class copy constructor  */
+/*-------------------------------*/
 Span::Span( const Span& other ) : _maxSize( other._maxSize ),
 								  _numbers( other._numbers ) {}
 
+/*---------------------------------------*/
+/*  Span Class copy assignment operator  */
+/*---------------------------------------*/
 Span&	Span::operator=( const Span& other ) {
 
 	if ( this != &other ) {
@@ -27,6 +36,9 @@ Span&	Span::operator=( const Span& other ) {
 	return *this;
 }
 
+/*-------------------------*/
+/*  Span Class destructor  */
+/*-------------------------*/
 Span::~Span( void ) {}
 
 void	Span::addNumber( int number ) {
@@ -38,6 +50,9 @@ void	Span::addNumber( int number ) {
 	_numbers.push_back( number );
 }
 
+/*---------------------------------------*/
+/*  Define addNumbersFromRange function  */
+/*---------------------------------------*/
 template <typename InputIterator>
 void	Span::addNumbersFromRange( InputIterator first, InputIterator last ) {
 
@@ -75,6 +90,9 @@ Span	Span::generateRandomSpan( unsigned int spanSize, int minValue, int maxValue
 	return sp;
 }
 
+/*--------------------------------*/
+/*  Define shortestSpan function  */
+/*--------------------------------*/
 int	Span::shortestSpan( void ) const {
 
 	if ( _numbers.size() < 2 ) {
@@ -96,6 +114,9 @@ int	Span::shortestSpan( void ) const {
 	return shortest;
 }
 
+/*-------------------------------*/
+/*  Define longestSpan function  */
+/*-------------------------------*/
 int	Span::longestSpan( void ) const {
 
 	if ( _numbers.size() < 2 ) {
@@ -108,7 +129,13 @@ int	Span::longestSpan( void ) const {
 	return maxElem - minElem;
 }
 
+/*---------------------------*/
+/*  Define getSize function  */
+/*---------------------------*/
 unsigned int	Span::getSize( void ) const { return _numbers.size(); }
 
+/*-----------------------------------*/
+/*  Explicit template instantiation  */
+/*-----------------------------------*/
 template void	Span::addNumbersFromRange<std::vector<int>::iterator>\
 					(std::vector<int>::iterator, std::vector<int>::iterator);

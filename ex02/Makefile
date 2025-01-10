@@ -4,7 +4,7 @@ VIOLET	= \033[0;35m
 RESET	= \033[0m
 
 # Variables
-NAME = span
+NAME = mutantStack
 SRC =	main.cpp
 OBJ = $(SRC:.cpp=.o)
 CXX = c++

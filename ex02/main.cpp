@@ -6,12 +6,15 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 17:11:01 by tkubanyc          #+#    #+#             */
-/*   Updated: 2025/01/10 17:12:58 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:16:02 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MutantStack.hpp"
 
+/*-----------------*/
+/*  Main function  */
+/*-----------------*/
 int	main( void ) {
 
 	MutantStack<int> mstack;

@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:19:02 by tkubanyc          #+#    #+#             */
-/*   Updated: 2025/01/10 17:04:03 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:16:37 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #include <stack>
 #include <iterator>
 
+/*----------------------------*/
+/*  Define MutantStack class  */
+/*----------------------------*/
 template <typename T>
 class	MutantStack : public std::stack<T> {
 

@@ -6,7 +6,7 @@
 /*   By: tkubanyc <tkubanyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:08:41 by tkubanyc          #+#    #+#             */
-/*   Updated: 2025/01/10 16:13:24 by tkubanyc         ###   ########.fr       */
+/*   Updated: 2025/01/11 21:00:38 by tkubanyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,14 @@
 /*--------------------------*/
 /*  Span Class constructor  */
 /*--------------------------*/
-Span::Span( unsigned int N ) : _maxSize( N ) {}
+Span::Span( int N ) {
+
+	if ( N <= 0 ) {
+		throw std::invalid_argument( "Span size must be a positive number" );
+	}
+
+	_maxSize = static_cast<unsigned int>(N);
+}
 
 /*-------------------------------*/
 /*  Span Class copy constructor  */
@@ -41,6 +48,9 @@ Span&	Span::operator=( const Span& other ) {
 /*-------------------------*/
 Span::~Span( void ) {}
 
+/*-----------------------------*/
+/*  Define addNumber function  */
+/*-----------------------------*/
 void	Span::addNumber( int number ) {
 
 	if ( _numbers.size() >= _maxSize ) {
@@ -48,46 +58,6 @@ void	Span::addNumber( int number ) {
 	}
 
 	_numbers.push_back( number );
-}
-
-/*---------------------------------------*/
-/*  Define addNumbersFromRange function  */
-/*---------------------------------------*/
-template <typename InputIterator>
-void	Span::addNumbersFromRange( InputIterator first, InputIterator last ) {
-
-	unsigned int numToAdd = std::distance( first, last );
-
-	if ( _numbers.size() + numToAdd > _maxSize ) {
-		throw std::overflow_error( "Adding this number exceeds the maximum size");
-	}
-	_numbers.insert( _numbers.end(), first, last );
-}
-
-/*-----------------------------------------------------------------*/
-/*  Function to generate a Span filled with unique random numbers  */
-/*-----------------------------------------------------------------*/
-Span	Span::generateRandomSpan( unsigned int spanSize, int minValue, int maxValue ) {
-
-	if ( maxValue - minValue + 1 < static_cast<int>(spanSize) ) {
-		throw std::invalid_argument( "Range too small to generate the required number of unique numbers" );
-	}
-
-	// Using <random> to generate random numbers
-	std::random_device rd; // Seed for the random generator
-	std::mt19937 gen( rd() ); // Mersenne Twister random generator
-	std::uniform_int_distribution<> dist( minValue, maxValue ); // Range of random numbers
-
-	std::unordered_set<int> uniqueNumbers;
-	while ( uniqueNumbers.size() < spanSize ) {
-		int randomNumber = dist( gen );
-		uniqueNumbers.insert( randomNumber ); // Only unique numbers are added to the set
-	}
-
-	Span sp( spanSize );
-	sp.addNumbersFromRange( uniqueNumbers.begin(), uniqueNumbers.end() );
-
-	return sp;
 }
 
 /*--------------------------------*/
@@ -134,8 +104,48 @@ int	Span::longestSpan( void ) const {
 /*---------------------------*/
 unsigned int	Span::getSize( void ) const { return _numbers.size(); }
 
+/*---------------------------------------*/
+/*  Define addNumbersFromRange function  */
+/*---------------------------------------*/
+template <typename InputIterator>
+void	Span::addNumbersFromRange( InputIterator first, InputIterator last ) {
+
+	unsigned int numToAdd = std::distance( first, last );
+
+	if ( _numbers.size() + numToAdd > _maxSize ) {
+		throw std::overflow_error( "Adding this number exceeds the maximum size");
+	}
+	_numbers.insert( _numbers.end(), first, last );
+}
+
 /*-----------------------------------*/
 /*  Explicit template instantiation  */
 /*-----------------------------------*/
 template void	Span::addNumbersFromRange<std::vector<int>::iterator>\
 					(std::vector<int>::iterator, std::vector<int>::iterator);
+
+/*-----------------------------------------------------------------*/
+/*  Function to generate a Span filled with unique random numbers  */
+/*-----------------------------------------------------------------*/
+Span	Span::generateRandomSpan( unsigned int spanSize, int minValue, int maxValue ) {
+
+	if ( maxValue - minValue + 1 < static_cast<int>(spanSize) ) {
+		throw std::invalid_argument( "Range too small to generate the required number of unique numbers" );
+	}
+
+	// Using <random> to generate random numbers
+	std::random_device rd; // Seed for the random generator
+	std::mt19937 gen( rd() ); // Mersenne Twister random generator
+	std::uniform_int_distribution<> dist( minValue, maxValue ); // Range of random numbers
+
+	std::unordered_set<int> uniqueNumbers;
+	while ( uniqueNumbers.size() < spanSize ) {
+		int randomNumber = dist( gen );
+		uniqueNumbers.insert( randomNumber ); // Only unique numbers are added to the set
+	}
+
+	Span sp( spanSize );
+	sp.addNumbersFromRange( uniqueNumbers.begin(), uniqueNumbers.end() );
+
+	return sp;
+}

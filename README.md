@@ -5,7 +5,7 @@
 </p>
 
 <h1 align="center">
- Project - CPP Module 07 :card_index_dividers:
+ Project - CPP Module 08 :card_index_dividers:
 </h1>
 
 <h2 align="center">
